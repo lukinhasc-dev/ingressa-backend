@@ -1,35 +1,43 @@
 document.addEventListener("DOMContentLoaded", function () {
     const formLogin = document.getElementById("forms-logar");
-  
+
     if (formLogin) {
-      formLogin.addEventListener("submit", function (e) {
-        e.preventDefault(); // Impede o envio padrão do formulário
-  
-        const emailInput = document.getElementById("email").value.trim().toLowerCase();
-        const senhaInput = document.getElementById("senha").value;
-  
-        // Tenta recuperar os usuários do localStorage
-        let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-  
-        // Procura por um usuário com e-mail e senha correspondentes
-        const usuarioLogado = usuarios.find(
-          (user) =>
-            user.email.toLowerCase().trim() === emailInput &&
-            user.senha === senhaInput
-        );
-  
-        if (usuarioLogado) {
-          alert("Login realizado com sucesso!");
-  
-          // Salva o usuário logado no localStorage (simulando sessão)
-          localStorage.setItem("usuarioLogado", JSON.stringify(usuarioLogado));
-  
-          // Redireciona para a página inicial
-          window.location.href = "/ingressa/templates/pages/inicio.html";
-        } else {
-          alert("Usuário não encontrado ou senha incorreta. Tente novamente.");
-        }
-      });
+        formLogin.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const emailInput = document.getElementById("email").value.trim().toLowerCase();
+            const senhaInput = document.getElementById("senha").value;
+
+            fetch("http://localhost:8080/api/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    email: emailInput,
+                    senha: senhaInput
+                })
+            })
+                .then(response => {
+                    if (response.status === 401) {
+                        throw new Error("Usuário ou senha inválidos");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert("Login realizado com sucesso!");
+
+                    localStorage.setItem("usuarioLogado", JSON.stringify(data));
+
+                    if (data.tipo === "admin") {
+                        window.location.href = "/admin-dashboard.html";
+                    } else {
+                        window.location.href = "/inicio.html";
+                    }
+                })
+                .catch(error => {
+                    alert(error.message);
+                });
+        });
     }
-  });
-  
+});

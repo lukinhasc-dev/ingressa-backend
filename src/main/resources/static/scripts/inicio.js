@@ -1,16 +1,17 @@
-// Seleciona o container onde os cards serão exibidos
 const containerCards = document.getElementById('cards');
-
-// Recupera os eventos salvos do localStorage
 const eventosSalvos = JSON.parse(localStorage.getItem('eventos')) || [];
 
-// Percorre todos os eventos e cria os cards
-eventosSalvos.forEach(evento => {
-    const card = document.createElement('section');
-    card.classList.add('cards-junction');
+if (eventosSalvos.length === 0) {
+    const mensagem = document.createElement('p');
+    mensagem.classList.add('no-events-message');
+    mensagem.textContent = 'Nenhum evento disponível no momento.';
+    containerCards.appendChild(mensagem);
+} else {
+    eventosSalvos.forEach(evento => {
+        const card = document.createElement('section');
+        card.classList.add('cards-junction');
 
-    card.innerHTML = `
-         <section class="cards-junction">
+        card.innerHTML = `
             <section id="cards-content">
                 <div class="cards-image">
                     <img src="${evento.banner}" alt="Foto do Evento/Show">
@@ -36,13 +37,12 @@ eventosSalvos.forEach(evento => {
                     </div>
                 </div>
             </section>
-        </section>
-    `;
+        `;
 
-    containerCards.appendChild(card);
-});
+        containerCards.appendChild(card);
+    });
+}
 
-// Função auxiliar para converter data em dia da semana
 function getDiaSemana(dataString) {
     const dias = ['Dom', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
     const data = new Date(dataString);
@@ -55,7 +55,7 @@ function formatarDataPorExtenso(dataString) {
         'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
     ];
 
-    const data = new Date(dataString + 'T00:00:00'); // garantir compatibilidade
+    const data = new Date(dataString + 'T00:00:00');
     const dia = data.getDate();
     const mes = meses[data.getMonth()];
 
@@ -63,7 +63,7 @@ function formatarDataPorExtenso(dataString) {
 }
 
 function formatarHorario(horarioString) {
-    const [hora, minuto] = horarioString.split(':');
+    const [hora, minuto] = horarioString.split('-');
 
     if (minuto === '00') {
         return `${hora}h`;
@@ -71,5 +71,3 @@ function formatarHorario(horarioString) {
         return `${hora}h${minuto}`;
     }
 }
-
-

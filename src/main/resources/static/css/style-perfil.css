@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Definindo variáveis para cores e fontes */
+:root {
+    --primary-color: #F85F1C;
+    --secondary-color: #D9D9D9;
+    --font-family: 'Roboto', sans-serif;
+    --hover-color: #e65c18; /* Cor para hover */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family);
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+}
+
+/* Barra de Navegação - Parte de cima do Ingressa */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 8rem;
+    border-bottom: 1px solid var(--primary-color);
+    padding-right: 150px;
+    padding-left: 94px;
+}
+
+.nav-ingressa nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    font-size: 1.3rem;
+    gap: 90px;
+}
+
+.nav-ingressa nav ul li a {
+    color: black;
+    text-decoration: none;
+}
+
+.logo-ingressa img {
+    max-width: 180px;
+    max-height: 180px;
+    object-fit: cover;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--primary-color);
+    border-radius: 20px;
+    padding: 5px;
+    width: 43.125rem;
+    height: 3.75rem;
+}
+
+.search-bar i {
+    margin-right: 0.20rem;
+    margin-left: 0.80rem;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+input[type="search"] {
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-weight: 350;
+    width: 100%;
+    padding: 12px;
+    max-width: 100%;
+}
+
+.profile-icon a {
+    text-decoration: none;
+    color: var(--primary-color);
+    font-size: 35px;
+}
+
+/* Encerramento do Header */
+
+/* Descrição do Perfil */
+#perfil-description {
+    padding-top: 65px;
+    margin-left: 136px;
+    margin-right: 120px;
+}
+
+.cards-tittle-description {
+    padding-bottom: 40px;
+    width: 100%;
+}
+
+.tittle-inicio {
+    color: var(--primary-color);
+    font-size: 2rem;
+}
+
+.text-inicio {
+    color: black;
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+/* Encerramento do Título e Descrição */
+
+/* Perfil Admin Account */
+#perfil-admin-account {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 150px;
+    margin-left: 130px;
+    margin-right: 126px;
+    margin-top: 30px;
+}
+
+.perfil-left {
+    display: flex;
+    justify-content: start;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.perfil-left input {
+    width: 40rem;
+    height: 3.7rem;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    background-color: var(--secondary-color);
+    color: black;
+    text-align: start;
+    padding-left: 15px;
+    margin-bottom: 0.80rem;
+    font-size: 1.2rem;
+}
+
+.perfil-left label {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+}
+
+.perfil-left textarea {
+    align-items: center;
+    resize: none;
+    width: 45rem;
+    height: 24.8rem;
+    font-size: 1.2rem;
+    border: none;
+    background-color: var(--secondary-color);
+    outline: none;
+    text-decoration: none;
+    border-radius: 20px;
+    padding: 1rem;
+}
+
+#editarBtn,
+#criarAdmin {
+    width: 40rem;
+    height: 3.7rem;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Efeito de transição */
+}
+
+#editarBtn:hover,
+#criarAdmin:hover {
+    background-color: var(--hover-color); /* Mudança de cor ao passar o mouse */
+    transform: scale(1.05); /* Efeito de aumento */
+}
+
+.title-perfil,
+.title-admin {
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    margin-top: 4rem;
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+.right-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 45px;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+.description-admin {
+    font-size: 1.30rem;
+    text-align: justify;
+}
+
+.create-admin {
+    place-self: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+
+    .nav-ingressa nav ul {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #perfil-admin-account {
+        flex-direction: column;
+        gap: 50px;
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+
+    .perfil-left input,
+    .perfil-left textarea {
+        width: 100%;
+    }
+
+    .right-group {
+        padding-bottom: 20px;
+    }
+
+    #editarBtn,
+    #criarAdmin {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .tittle-inicio {
+        font-size: 1.5rem; /* Tamanho de título menor para telas pequenas */
+    }
+
+    .text-inicio {
+        font-size: 1.2rem; /* Tamanho de texto menor */
+    }
+
+    .perfil-left input,
+    .perfil-left textarea {
+        font-size: 1rem; /* Ajuste no tamanho da fonte */
+    }
+
+    .perfil-left label {
+        font-size: 1.1rem; /* Ajuste no tamanho do rótulo */
+    }
+
+    #perfil-admin-account {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .nav-ingressa nav ul {
+        gap: 15px;
+    }
+
+    .logo-ingressa img {
+        max-width: 150px;
+    }
+}
