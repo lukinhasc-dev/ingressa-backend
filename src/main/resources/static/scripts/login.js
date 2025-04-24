@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
           localStorage.setItem("usuarioLogado", JSON.stringify(usuarioLogado));
   
           // Redireciona para a página inicial
-          window.location.href = "/pages/inicio.html";
+          window.location.href = "/ingressa/templates/pages/inicio.html";
         } else {
           alert("Usuário não encontrado ou senha incorreta. Tente novamente.");
         }
