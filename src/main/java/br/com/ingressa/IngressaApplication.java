@@ -1,4 +1,4 @@
-package br.com.ingressa.ingressa;
+package br.com.ingressa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
