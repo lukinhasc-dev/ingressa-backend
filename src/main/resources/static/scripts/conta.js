@@ -1,5 +1,38 @@
 document.addEventListener("DOMContentLoaded", function () {
     const formCadastro = document.getElementById("forms-cadastro");
+    const cpfInput = document.getElementById("cpf");
+    const telefoneInput = document.getElementById("telefone");
+    const nomeInput = document.getElementById("nome");
+
+    if (cpfInput) {
+        cpfInput.addEventListener("input", function (e) {
+            let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+            value = value.replace(/(\d{3})(\d)/, "$1.$2");
+            value = value.replace(/(\d{3})(\d)/, "$1.$2");
+            value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+            e.target.value = value;
+        });
+    }
+
+    if (nomeInput) {
+        nomeInput.addEventListener("input", function (e) {
+            let value = e.target.value;
+
+            // Permite apenas letras (maiúsculas e minúsculas) e espaços
+            value = value.replace(/[^a-zA-ZÀ-ÿ\s]/g, "");
+
+            e.target.value = value;
+        });
+    }
+
+    if (telefoneInput) {
+        telefoneInput.addEventListener("input", function (e) {
+            let value = e.target.value.replace(/\D/g, ""); // Remove tudo que não for número
+            value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
+            value = value.replace(/(\d{5})(\d)/, "$1-$2");
+            e.target.value = value;
+        });
+    }
 
     if (formCadastro) {
         formCadastro.addEventListener("submit", function (e) {
@@ -52,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
                 .then(data => {
                     alert("Cadastro realizado com sucesso!");
-                    window.location.href = "/pages/login.html";
+                    window.location.replace("login.html");
                 })
                 .catch(error => {
                     alert(error.message);

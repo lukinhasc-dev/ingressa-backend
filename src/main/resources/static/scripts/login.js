@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (data.tipo === "admin") {
                         window.location.href = "/admin-dashboard.html";
                     } else {
-                        window.location.href = "/inicio.html";
+                        window.location.href = "/ingressa-backend/static/pages/inicio.html";
                     }
                 })
                 .catch(error => {
