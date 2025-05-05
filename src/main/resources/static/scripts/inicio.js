@@ -1,64 +1,11 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Função para buscar eventos do backend
-    fetch("http://localhost:8080/api/eventos") // Aqui deve ser o endpoint correto da sua API
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao buscar eventos');
-            }
-            return response.json(); // Assume que a resposta é em JSON
-        })
-        .then(events => {
-            const cardsContent = document.getElementById("cards-content"); // Referência ao conteúdo dos cards
-            cardsContent.innerHTML = ''; // Limpa o conteúdo atual dos cards
-
-            // Loop pelos eventos e inserção dinâmica
-            events.forEach(event => {
-                // Criação de cada card de evento
-                const card = document.createElement("section");
-                card.classList.add("cards-junction");
-
-                const cardContent = `
-                    <section id="cards-content">
-                        <div class="cards-image">
-                            <img src="/static/uploads/${event.imagem}" alt="Foto do Show"> <!-- Caminho da imagem -->
-                        </div>
-                        <div class="cards-title-description">
-                            <span class="title-card">${event.titulo}</span>
-                            <p class="description-card">${event.descricao}</p>
-                        </div>
-                        <div class="cards-information">
-                            <div class="cards-date">
-                                <div class="cards-dayweek">
-                                    <span>${event.diaSemana}</span> <!-- Exemplo de como pode estar -->
-                                </div>
-                                <span>${event.data}</span> <!-- Data do evento -->
-                                <span> - </span>
-                                <span>${event.hora}</span> <!-- Hora do evento -->
-                            </div>
-                            <div class="cards-ingresso">
-                                <button>Ingressos</button>
-                            </div>
-                        </div>
-                    </section>
-                `;
-
-                card.innerHTML = cardContent;
-                cardsContent.appendChild(card); // Adiciona o card no conteúdo da página
-            });
-        })
-        .catch(error => {
-            console.error('Erro ao carregar eventos:', error);
-            // Você pode adicionar algum tipo de mensagem de erro aqui, se necessário
-        });
-});
-
-
+// Função para pegar o dia da semana
 function getDiaSemana(dataString) {
     const dias = ['Dom', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
     const data = new Date(dataString);
     return dias[data.getDay()];
 }
 
+// Função para formatar a data por extenso
 function formatarDataPorExtenso(dataString) {
     const meses = [
         'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
@@ -72,8 +19,9 @@ function formatarDataPorExtenso(dataString) {
     return `${dia} de ${mes}`;
 }
 
+// Função para formatar o horário
 function formatarHorario(horarioString) {
-    const [hora, minuto] = horarioString.split('-');
+    const [hora, minuto] = horarioString.split(':'); // Ajustei o split para ':'
 
     if (minuto === '00') {
         return `${hora}h`;
@@ -81,3 +29,53 @@ function formatarHorario(horarioString) {
         return `${hora}h${minuto}`;
     }
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+    fetch('http://localhost:8080/api/eventos')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao carregar os eventos');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const eventosContainer = document.getElementById('cards-content');
+            eventosContainer.innerHTML = '';
+
+            data.forEach(evento => {
+                const diaSemana = getDiaSemana(evento.data_evento);
+                const dataExtenso = formatarDataPorExtenso(evento.data_evento);
+                const horarioFormatado = formatarHorario(evento.horario_evento);
+
+                const eventoElement = document.createElement('section');
+                eventoElement.classList.add('cards-juncti');
+                eventoElement.innerHTML = `
+                    <div class="cards-image">
+                        <img src="http://localhost:8080/api/eventos/imagem/${evento.id}" alt="Foto do evento">
+                    </div>
+                    <div class="cards-title-description">
+                        <span class="title-card">${evento.nome_evento}</span>
+                        <p class="description-card">${evento.descricao_evento}</p>
+                    </div>
+                    <div class="cards-information">
+                        <div class="cards-date">
+                            <div class="cards-dayweek">
+                                <span>${diaSemana}</span>
+                            </div>
+                            <span>${dataExtenso}</span>
+                            <span> - </span>
+                            <span>${horarioFormatado}</span>
+                        </div>
+                        <div class="cards-ingresso">
+                            <button>Ingressos</button>
+                        </div>
+                    </div>
+                `;
+                eventosContainer.appendChild(eventoElement);
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao carregar os eventos:', error);
+            alert('Erro ao carregar os eventos');
+        });
+});

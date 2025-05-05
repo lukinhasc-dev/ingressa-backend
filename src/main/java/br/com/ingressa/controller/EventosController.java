@@ -3,6 +3,7 @@ package br.com.ingressa.controller;
 
 import br.com.ingressa.model.Eventos;
 import br.com.ingressa.repository.EventosRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +17,19 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.Path;
 import java.time.LocalTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/eventos")
 public class EventosController {
 
+    @Autowired
     private final EventosRepository eventosRepository;
+
+    @GetMapping
+    public List<Eventos> listarEventos(){
+        return eventosRepository.findAll();
+    }
 
     public EventosController(EventosRepository eventosRepository) {
         this.eventosRepository = eventosRepository;
@@ -64,6 +72,7 @@ public class EventosController {
         eventosRepository.save(eventos);
         return ResponseEntity.status(HttpStatus.CREATED).body("Evento criado com sucesso!");
     }
+
 }
 
 

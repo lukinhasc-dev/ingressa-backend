@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto';
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+}
+
+/*Barra de Navegação - Parte de cima do Ingressa*/
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 8rem;
+    border-bottom: 1px solid #F85F1C;
+    padding-right: 150px;
+    padding-left: 94px;
+}
+
+.nav-ingressa nav ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    font-size: 1.3rem;
+    gap: 90px;
+}
+
+.nav-ingressa nav ul li a {
+    color: black;
+    text-decoration: none;
+}
+
+.logo-ingressa img {
+    max-width: 180px;
+    max-height: 180px;
+    object-fit: cover;
+}
+
+.search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #F85F1C;
+    border-radius: 20px;
+    padding: 5px;
+    width: 43.125rem;
+    height: 3.75rem;
+}
+
+.search-bar i {
+    margin-right: 0.20rem;
+    margin-left: 0.80rem;
+    font-size: 14px;
+    color: #F85F1C;
+}
+
+input[type="search"] {
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-weight: 350;
+    width: 100%;
+    padding: 12px;
+    max-width: 100%;
+}
+
+.profile-icon a {
+    text-decoration: none;
+    color: #F85F1C;
+    font-size: 35px;
+}
+
+/*Barra de Navegação - FINAL*/
+
+/*Titulo e Descrição da Página de Cadastrar evento*/
+.tittle-text-events {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 136px;
+    padding-top: 75px;
+    padding-bottom: 40px;
+}
+
+.tittle-text-events h1 {
+    font-size: 2rem;
+    color: #F85F1C;
+}
+
+.tittle-text-events p {
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+/*Titulo e Descrição - FINAL*/
+
+
+
+/*Informações do Evento, Título...*/
+#infos-evento {
+    margin-left: 136px;
+    font-weight: 500;
+    font-size: 20px;
+}
+
+#ingressos-carrinho {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 50px;
+    margin-left: 136px;
+}
+
+.ingressos-valor {
+    width: 490px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.ingresso-tittle {
+    background-color: #F85F1C;
+    color: white;
+    font-weight: 500;
+    font-size: 25px;
+    border-radius: 13px 13px 0px 0px;
+    padding: 10px;
+    border: 3px solid #F85F1C;
+
+}
+
+.ingresso-valor {
+    font-size: 25px;
+    font-weight: bolder;
+    border-radius: 0px 0px 13px 13px;
+    padding: 15px;
+    border: 1.5px solid #C0C0C0;
+}
+
+.adc-carrinho {
+    text-align: center;
+    color: white;
+}
+
+.carrinho {
+    text-align: center;
+    padding: 16px;
+    width: 490px;
+    font-weight: 500;
+    font-size: 25px;
+    border-radius: 13px;
+    background-color: #F85F1C;
+    cursor: pointer;
+}
+/*Informações do Evento, Título... - FINAL*/
+
+#events-banner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#foto-banner img {
+    margin-top: 75px;
+    margin-right: 120px;
+    margin-left: 80px;
+    border-radius: 15px;
+    border: 1.5px solid #F85F1C;
+    max-width: 650px;
+    max-height: 650px;
+}
+
+
+
+
+
+
+
+
+
+
+.info-event {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top: 1.5px solid #C0C0C0;
+    border-bottom: 1.5px solid #C0C0C0;
+    padding: 20px;
+    gap: 12px;
+}
+
+.infos-icone {
+    display: flex;
+    text-align: center;
+    gap: 10px;
+}
+
+.infos-icone i {
+    color: #F85F1C;
+    font-size: 22px;
+}
+
+.text-info {
+    font-size: 20px;
+}
