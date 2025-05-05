@@ -1,11 +1,14 @@
 package br.com.ingressa.model;
 
 import jakarta.persistence.*;
-
+import lombok.Getter;
+import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@Getter
+@Setter
 @Entity(name = "eventos")
 public class Eventos {
     @Id
@@ -42,3 +45,6 @@ public class Eventos {
     @Column(nullable = true, name = "foto_evento", columnDefinition = "longblob")
     private byte[] foto_evento;
 }
+
+
+
