@@ -1,47 +1,57 @@
-const containerCards = document.getElementById('cards');
-const eventosSalvos = JSON.parse(localStorage.getItem('eventos')) || [];
+document.addEventListener("DOMContentLoaded", function () {
+    // Função para buscar eventos do backend
+    fetch("http://localhost:8080/api/eventos") // Aqui deve ser o endpoint correto da sua API
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao buscar eventos');
+            }
+            return response.json(); // Assume que a resposta é em JSON
+        })
+        .then(events => {
+            const cardsContent = document.getElementById("cards-content"); // Referência ao conteúdo dos cards
+            cardsContent.innerHTML = ''; // Limpa o conteúdo atual dos cards
 
-if (eventosSalvos.length === 0) {
-    const mensagem = document.createElement('p');
-    mensagem.classList.add('no-events-message');
-    mensagem.textContent = 'Nenhum evento disponível no momento.';
-    containerCards.appendChild(mensagem);
-} else {
-    eventosSalvos.forEach(evento => {
-        const card = document.createElement('section');
-        card.classList.add('cards-junction');
+            // Loop pelos eventos e inserção dinâmica
+            events.forEach(event => {
+                // Criação de cada card de evento
+                const card = document.createElement("section");
+                card.classList.add("cards-junction");
 
-        card.innerHTML = `
-            <section id="cards-content">
-                <div class="cards-image">
-                    <img src="${evento.banner}" alt="Foto do Evento/Show">
-                </div>
-
-                <div class="cards-title-description">
-                    <span class="title-card">${evento.nome}</span>
-                    <p class="description-card">${evento.descricao}</p>
-                </div>
-
-                <div class="cards-information">
-                    <div class="cards-date">
-                        <div class="cards-dayweek">
-                            <span>${getDiaSemana(evento.data)}</span>
+                const cardContent = `
+                    <section id="cards-content">
+                        <div class="cards-image">
+                            <img src="/static/uploads/${event.imagem}" alt="Foto do Show"> <!-- Caminho da imagem -->
                         </div>
-                        <span>${formatarDataPorExtenso(evento.data)}</span>
-                        <span> - </span>
-                        <span>${formatarHorario(evento.horario)}</span>
-                    </div>
+                        <div class="cards-title-description">
+                            <span class="title-card">${event.titulo}</span>
+                            <p class="description-card">${event.descricao}</p>
+                        </div>
+                        <div class="cards-information">
+                            <div class="cards-date">
+                                <div class="cards-dayweek">
+                                    <span>${event.diaSemana}</span> <!-- Exemplo de como pode estar -->
+                                </div>
+                                <span>${event.data}</span> <!-- Data do evento -->
+                                <span> - </span>
+                                <span>${event.hora}</span> <!-- Hora do evento -->
+                            </div>
+                            <div class="cards-ingresso">
+                                <button>Ingressos</button>
+                            </div>
+                        </div>
+                    </section>
+                `;
 
-                    <div class="cards-ingresso">
-                        <button>Ingressos</button>
-                    </div>
-                </div>
-            </section>
-        `;
+                card.innerHTML = cardContent;
+                cardsContent.appendChild(card); // Adiciona o card no conteúdo da página
+            });
+        })
+        .catch(error => {
+            console.error('Erro ao carregar eventos:', error);
+            // Você pode adicionar algum tipo de mensagem de erro aqui, se necessário
+        });
+});
 
-        containerCards.appendChild(card);
-    });
-}
 
 function getDiaSemana(dataString) {
     const dias = ['Dom', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];

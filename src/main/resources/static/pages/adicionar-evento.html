@@ -20,8 +20,8 @@
 
             <nav>
                 <ul>
-                    <li><a href="/pages/inicio.html">Início</a></li>
-                    <li><a href="/carrinho">Carrinho</a></li>
+                    <li><a href="inicio.html">Início</a></li>
+                    <li><a href="teste">Carrinho</a></li>
                 </ul>
             </nav>
 
@@ -223,6 +223,18 @@
 
 
     <script src="/static/scripts/adicionar-evento.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+        if (!usuarioLogado) {
+            window.location.href = "/pages/login.html";
+        } else {
+            const profileIcon = document.querySelector(".profile-icon a");
+            profileIcon.innerHTML = `${usuarioLogado.email} <i class="fas fa-user"></i>`;
+        }
+    });
+</script>
 </body>
 
 </html>
