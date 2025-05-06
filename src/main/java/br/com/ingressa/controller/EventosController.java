@@ -12,12 +12,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.nio.file.Path;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/eventos")
@@ -58,19 +60,39 @@ public class EventosController {
         eventos.setCidade_evento(cidadeEvento);
         eventos.setEstado_evento(estadoEvento);
         eventos.setNumero_evento(numeroEvento);
-
         if (fotoEvento != null && !fotoEvento.isEmpty()) {
-            // Salvar o arquivo em disco, caso queira
-            Path caminhoFoto = Path.of("uploads/" + fotoEvento.getOriginalFilename());
-            Files.createDirectories(caminhoFoto.getParent()); // Cria a pasta se não existir
-            Files.copy(fotoEvento.getInputStream(), caminhoFoto, StandardCopyOption.REPLACE_EXISTING);
-            eventos.setFoto_evento(fotoEvento.getBytes()); // Salva apenas o nome do arquivo no banco
+            String nomeArquivoOriginal = Paths.get(fotoEvento.getOriginalFilename()).getFileName().toString();
+
+            if (!nomeArquivoOriginal.toLowerCase().matches(".*\\.(png|jpg|jpeg|gif)$")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Formato de imagem inválido.");
+            }
+
+            String extensao = nomeArquivoOriginal.substring(nomeArquivoOriginal.lastIndexOf("."));
+            String novoNomeArquivo = UUID.randomUUID().toString() + extensao;
+            Path caminhoFoto = Path.of("uploads", novoNomeArquivo);
+
+            try {
+                Files.createDirectories(caminhoFoto.getParent());
+                Files.copy(fotoEvento.getInputStream(), caminhoFoto, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar a foto.");
+            }
+
+            eventos.setFoto_evento("/uploads/" + novoNomeArquivo);
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nenhuma foto enviada.");
         }
 
+
         eventosRepository.save(eventos);
         return ResponseEntity.status(HttpStatus.CREATED).body("Evento criado com sucesso!");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Eventos> buscarPorId(@PathVariable Long id) {
+        return eventosRepository.findById(id)
+                .map(evento -> ResponseEntity.ok(evento))
+                .orElse(ResponseEntity.notFound().build());
     }
 
 }

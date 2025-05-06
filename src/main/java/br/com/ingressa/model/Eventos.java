@@ -40,10 +40,10 @@ public class Eventos {
     private String estado_evento;
 
     @Column(nullable = true, name = "numero_evento", columnDefinition = "int")
-    private int numero_evento;
+    private Integer numero_evento;
 
-    @Column(nullable = true, name = "foto_evento", columnDefinition = "longblob")
-    private byte[] foto_evento;
+    @Column(nullable = true, name = "foto_evento", columnDefinition = "varchar(255)")
+    private String foto_evento;
 }
 
 

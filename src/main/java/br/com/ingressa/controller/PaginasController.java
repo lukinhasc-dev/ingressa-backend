@@ -31,4 +31,9 @@ public class PaginasController {
     public String login() {
         return "login.html";
     }
+
+    @GetMapping("/informacoes-evento.html")
+    public String informacoesEvento() {
+        return "informacoes-evento.html";
+    }
 }

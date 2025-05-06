@@ -40,18 +40,20 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .then(data => {
             const eventosContainer = document.getElementById('cards-content');
-            eventosContainer.innerHTML = '';
+            eventosContainer.innerHTML = '';  // Limpa o conteúdo atual
 
+            // Itera sobre os eventos recebidos
             data.forEach(evento => {
                 const diaSemana = getDiaSemana(evento.data_evento);
                 const dataExtenso = formatarDataPorExtenso(evento.data_evento);
                 const horarioFormatado = formatarHorario(evento.horario_evento);
 
                 const eventoElement = document.createElement('section');
-                eventoElement.classList.add('cards-juncti');
+                eventoElement.classList.add('cards-junctio');
                 eventoElement.innerHTML = `
                     <div class="cards-image">
-                        <img src="http://localhost:8080/api/eventos/imagem/${evento.id}" alt="Foto do evento">
+                        <!-- Usando o caminho da imagem que foi salva no banco de dados -->
+                        <img src="http://localhost:8080${evento.foto_evento}" alt="Foto do evento">
                     </div>
                     <div class="cards-title-description">
                         <span class="title-card">${evento.nome_evento}</span>
@@ -67,10 +69,13 @@ document.addEventListener("DOMContentLoaded", function() {
                             <span>${horarioFormatado}</span>
                         </div>
                         <div class="cards-ingresso">
-                            <button>Ingressos</button>
+                            <a href="informacoes-evento.html?id=${evento.id}">
+                                <button>Ingressos</button>
+                            </a>
                         </div>
                     </div>
                 `;
+
                 eventosContainer.appendChild(eventoElement);
             });
         })

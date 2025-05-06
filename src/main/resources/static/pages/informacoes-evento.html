@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/assets/icons/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/static/css/style-infoevento.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Ingressa</title>
@@ -95,27 +95,17 @@
         </section>
     </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script src="/static/scripts/informacoes-evento.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
+
+            if (!usuarioLogado) {
+                window.location.href = "/pages/login.html";
+            } else {
+                const profileIcon = document.querySelector(".profile-icon a");
+                profileIcon.innerHTML = `<i class="fas fa-user"></i>`;
+            }
+        });
+    </script>
 </body>
