@@ -79,19 +79,12 @@ input[type="search"] {
     font-size: 35px;
 }
 
-/*Barra de Navegação - FINAL*/
-
-
-/*INICIO DOS CARDS, TITULO E CARDS!*/
-#shows-description {
+/*TITULO E DESCRIÇÃO*/
+.cards-tittle-description {
     padding-top: 65px;
     margin-left: 136px;
     margin-right: 120px;
-}
-
-.cards-tittle-description {
     padding-bottom: 40px;
-    width: 100%;
 }
 
 .tittle-inicio {
@@ -104,77 +97,116 @@ input[type="search"] {
     font-weight: 400;
 }
 
-/*TITULO E DESCRIÇÃO FECHAM AQUI*/
+/*FIM DO TITULO E DESCRIÇÃO*/
 
-
-/*INICIO DOS CARDS DE SHOWS/EVENTOS */
-#cards {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 1.1rem;
-    margin-left: 136px;
-    margin-right: 120px;
-}
-
-#cards-content {
-    display: flex;
-    gap: 35px;
-    padding: 15px;
-    border-radius: 10px;
-    width: 350px;
-    height: 630px;
-}
-
-#cards-content img {
-    height: 320px;
-    width: 320px;
-    border-radius: 10px;
-    object-fit: cover;
-    margin-bottom: 10px;
-}
-
-.title-card {
-    color: #F85F1C;
-    font-size: 1.20rem;
-    font-weight: 600;
-}
-
-.description-card {
-    color: black;
-    font-size: 1.1rem;
-    margin-top: 0.30rem;
-    font-weight: 400;
-    text-align: justify;
-}
-
-#cards .cards-information {
+/*CARRINHO*/
+.carrinho-compra {
     display: flex;
     justify-content: space-between;
-    align-items: end;
+    gap: 18rem;
 }
 
-.cards-dayweek {
-    color: #6A6A6A;
-    font-weight: 400;
-    font-size: 1.15rem;
+/*INICIO DA TABELA*/
+.ingresso-informacoes {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-left: 136px;
+    gap: 15px;
 }
 
-.cards-date {
+.ingresso-linha {
+    display: flex;
+    border-radius: 0px 10px 10px 0px;
+    background-color: rgb(250, 250, 250);
+    width: 800px;
+    align-items: center;
+    gap: 55px;
+}
+
+.ingresso-informacoes img {
+    max-height: 160px;
+}
+
+.info-evento {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.info-evento strong {
+    font-size: 1.1rem;
+}
+
+.info-evento p {
+    font-size: 1rem;
+}
+/*FIM DA TABELA*/
+
+
+
+/*CARD DE PAGAMENTO NA DIREITA*/
+.pagamento-ingresso {
+    height: 340px;
+    margin-right: 150px;
+    background-color: rgb(250, 250, 250);
+    border-radius: 18px;
+    padding: 1.3rem;
+    border: 1px solid #F85F1C;
+    text-align: center;
+}
+
+.tittle-icone {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+}
+
+.tittle-icone i {
+    font-size: 30px;
     color: #F85F1C;
-    font-weight: 400;
-    font-size: 1.10rem;
 }
 
-.cards-ingresso button {
-    color: white;
-    background-color: #F85F1C;
+.title-carrinho {
+    font-size: 1.40rem;
+    color: black;
+}
+
+.options-valores {
+    display: flex;
+    margin-top: 50px;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.list-option {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.25rem;
+}
+
+.list-option strong {
+    color: #F85F1C;
+}
+
+.option-valores2 {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.25rem;
+    margin-top: 20px;
+    border-top: 2px solid black;
+    padding-top: 20px;
+    gap: 40px;
+}
+
+button[type="submit"] {
+    font-size: 1.25rem;
+    outline: none;
     border: none;
-    border-radius: 20px;
-    font-size: 0.95rem;
-    font-weight: 200;
-    padding: 5px;
-    width: 100px;
-    cursor: pointer;
-    margin-top: 100%;
+    background-color: #F85F1C;
+    border-radius: 10px;
+    color: white;
+    width: 320px;
+    height: 45px;
 }

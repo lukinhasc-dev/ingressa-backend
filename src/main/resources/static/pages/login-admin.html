@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/style-login-admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Login</title>
+
+</head>
+
+<body>
+    <section class="esquerda-direita">
+        <section class="lado-esquerdo">
+            <div class="logo-ingressa">
+                <img src="/static/assets/ingressa-logo-transp.png" alt="Logo Ingressa">
+            </div>
+        </section>
+
+        <section class="lado-direito">
+            <div class="tittle-description">
+                <h1 class="login-tittle">Login Administrador</h1>
+                <p class="login-text">
+                    Cadastre seus eventos no Ingressa e acompanhe vendas em tempo real com praticidade, controle total e
+                    segurança na gestão.
+                </p>
+            </div>
+
+            <div class="forms-cadastro"></div>
+            <form id="forms-logar">
+
+                <div class="input-email">
+                    <i class="fas fa-id-card"></i> <!-- Ícone de cartão de identificação -->
+                    <input type="text" id="cpf" name="cpf" placeholder="CPF" required>
+                </div>
+
+                <div class="input-senha">
+                    <i class="fas fa-lock"></i> <!-- Ícone de cadeado -->
+                    <input type="password" id="senha" name="senha" placeholder="Senha" required>
+                </div>
+
+                <div class="forgot-password">
+                    <div class="forgot-pass">
+                        <p>Esqueceu a senha? </p>
+                        <a href="/redefinir.html"> Redefinir senha</a>
+                    </div>
+
+                    <input type="submit" value="Entrar">
+                </div>
+
+                <div class="create-account">
+                    <a href="/pages/login.html">Entrar como Usuário</a>
+                </div>
+            </form>
+        </section>
+    </section>
+
+
+    <script src="/static/scripts/login-admin.js"></script>
+</body>
+
+</html>

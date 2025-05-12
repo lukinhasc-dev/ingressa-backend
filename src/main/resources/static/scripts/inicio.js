@@ -49,11 +49,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 const horarioFormatado = formatarHorario(evento.horario_evento);
 
                 const eventoElement = document.createElement('section');
-                eventoElement.classList.add('cards-junctio');
+                eventoElement.classList.add('cards-content');
                 eventoElement.innerHTML = `
                     <div class="cards-image">
                         <!-- Usando o caminho da imagem que foi salva no banco de dados -->
-                        <img src="http://localhost:8080${evento.foto_evento}" alt="Foto do evento">
+                        <img src="http://localhost:8080${evento.foto_evento}" alt="Foto do evento" height="500px" width="500px">
                     </div>
                     <div class="cards-title-description">
                         <span class="title-card">${evento.nome_evento}</span>
@@ -74,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
                             </a>
                         </div>
                     </div>
+                   
                 `;
 
                 eventosContainer.appendChild(eventoElement);

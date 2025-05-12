@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/static/assets/icons/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/style-carrinho.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Ingressa</title>
+
+</head>
+
+<body>
+    <section class="nav-ingressa">
+        <header>
+            <div class="logo-ingressa">
+                <img src="/static/assets/ingressa-logo-transp.png" alt="Logotipo Ingressa">
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="inicio.html">Início</a></li>
+                    <li><a href="carrinho.html">Carrinho</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <form action="" method="GET">
+                    <div class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="search" id="search" name="search" placeholder="Pesquisar eventos, shows..."
+                            required>
+                    </div>
+                </form>
+            </div>
+
+            <div class="profile-icon">
+                <a href="/pages/perfil.html"> <!-- Ajustei o link para algo mais relevante -->
+                    <i class="fas fa-user"></i> <!-- Ícone do perfil -->
+                </a>
+            </div>
+        </header>
+    </section>
+
+    <section>
+        <div class="cards-tittle-description">
+            <h1 class="tittle-inicio">Carrinho de Compras</h1>
+            <p class="text-inicio">Confira seus itens favoritos e finalize sua compra com facilidade pelo Carrinho
+                Ingressa.
+            </p>
+        </div>
+    </section>
+
+
+    <section class="carrinho-compra">
+        <div class="ingresso-informacoes" id="carrinho">
+            <div class="ingresso-linha">
+                <img src="/static/assets/teste-fotomcpaiva.png" alt="">
+                <div class="info-evento">
+                    <strong class="titulo-ingresso">Show do Mc Paiva</strong>
+                    <p>teste</p>
+                </div>
+
+                <div class="info-evento">
+                    <strong class="qntd-ingresso">Qntd. Ingresso</strong>
+                    <p>1</p>
+                </div>
+
+                <div class="info-evento">
+                    <strong class="valor-ingresso">Valor</strong>
+                    <p>R$150,00</p>
+                </div>
+            </div>
+
+            
+        </div>
+
+        <div class="pagamento-ingresso">
+            <div class="tittle-icone">
+                <i class="fas fa-shopping-cart"></i>
+                <strong class="title-carrinho">Resumo de Compra</strong>
+            </div>
+
+            <div class="options-valores">
+                <div class="list-option">
+                    <strong>Valor Total</strong>
+                    <p>teste</p>
+                </div>
+                <div class="list-option">
+                    <strong>Subtotal</strong>
+                    <p>teste</p>
+                </div>
+            </div>
+            <div class="option-valores2">
+                <div class="list-option">
+                    <strong>Total</strong>
+                    <p>R$150,00</p>
+                </div>
+
+                <div class="list-pagamento">
+                    <button type="submit">Pagamento</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<script src="/static/js/carrinho.js"></script>
+</body>

@@ -145,11 +145,6 @@ input[type="search"] {
     border: 1.5px solid #C0C0C0;
 }
 
-.adc-carrinho {
-    text-align: center;
-    color: white;
-}
-
 .carrinho {
     text-align: center;
     padding: 16px;
@@ -159,12 +154,15 @@ input[type="search"] {
     border-radius: 13px;
     background-color: #F85F1C;
     cursor: pointer;
+    border: none;
+    outline: none;
+    color: white;
 }
 /*Informações do Evento, Título... - FINAL*/
 
 #events-banner {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -174,9 +172,10 @@ input[type="search"] {
     margin-left: 80px;
     border-radius: 15px;
     border: 1.5px solid #F85F1C;
-    max-width: 650px;
-    max-height: 650px;
+    width: 500px;
+    height: 500px;
 }
+
 
 
 
