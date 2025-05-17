@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
         throw new Error('Erro ao buscar os dados do evento');
       }
 
-      // TENTANDO pegar como texto (caso backend não mande content-type JSON)
       const texto = await response.text();
       let evento;
 

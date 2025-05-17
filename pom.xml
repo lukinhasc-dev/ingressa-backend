@@ -37,6 +37,13 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>21.13.0</version>
+        </dependency>
+
         <!-- MySQL Driver -->
         <dependency>
             <groupId>com.mysql</groupId>

@@ -5,7 +5,7 @@ import br.com.ingressa.model.Eventos;
 import br.com.ingressa.model.User;
 import br.com.ingressa.service.CarrinhoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
