@@ -93,12 +93,21 @@ document.addEventListener("DOMContentLoaded", () => {
             if (data.url) {
                 window.location.href = data.url;
             } else {
-                alert("Erro ao criar sessão de pagamento.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Algo deu errado!',
+                    text: 'Erro ao criar a sessão de pagamento.',
+                    confirmButtonColor: '#d33'
+                });
             }
 
         } catch (error) {
-            console.error("Erro:", error);
-            alert("Erro ao processar pagamento.");
+            Swal.fire({
+                icon: 'error',
+                title: 'Algo deu errado!',
+                text: 'Ocorreu um problema ao processar seu pagamento.',
+                confirmButtonColor: '#d33'
+            });
         }
     });
 

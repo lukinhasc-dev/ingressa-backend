@@ -13,11 +13,11 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/payment")
-@CrossOrigin(origins = "*") // Permite requisições do frontend local
+@CrossOrigin(origins = "*")
 public class StripeController {
 
     public StripeController() {
-        Stripe.apiKey = "sk_test_51RHTBSFQgrHQPFRg8vLIMk0Hn8RZBGHk1RQjtcBxykwhVWbKXAZLYVlvEGCtcBSV2rrDY4iPjqvWQqtaaRagqP6a00mut3TT6W"; // 🔥 Coloca sua chave secreta aqui
+        Stripe.apiKey = "sk_test_51RHTBSFQgrHQPFRg8vLIMk0Hn8RZBGHk1RQjtcBxykwhVWbKXAZLYVlvEGCtcBSV2rrDY4iPjqvWQqtaaRagqP6a00mut3TT6W"; //Coloca sua chave secreta aqui
     }
 
     @PostMapping("/create-checkout-session")

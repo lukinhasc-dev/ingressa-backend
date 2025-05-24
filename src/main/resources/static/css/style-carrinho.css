@@ -210,3 +210,15 @@ button[type="submit"] {
     width: 320px;
     height: 45px;
 }
+
+.remover-item {
+    color: white;
+    background-color: #F85F1C;
+    font-size: 1.1rem;
+    width: 125px;
+    cursor: pointer;
+    padding: 0.70rem;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}

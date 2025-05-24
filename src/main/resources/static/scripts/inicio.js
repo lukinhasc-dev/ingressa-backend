@@ -8,6 +8,8 @@ fetch('http://localhost:8080/api/eventos')
         return response.json();
     })
     .then(eventos => {
+        cardsJunction.innerHTML = ''; // Limpa qualquer conteúdo antigo, só por precaução
+
         eventos.forEach(evento => {
             const cardHTML = `
                 <section id="card">
@@ -27,9 +29,9 @@ fetch('http://localhost:8080/api/eventos')
                             </div>
                         </div>
 
-                         <a href="informacoes-evento.html?id=${evento.id}">
-                <button id="btn-ingressos">Ingressos</button>
-            </a>
+                        <a href="informacoes-evento.html?id=${evento.id}">
+                            <button id="btn-ingressos">Ingressos</button>
+                        </a>
                     </div>
                 </section>
             `;
@@ -40,7 +42,7 @@ fetch('http://localhost:8080/api/eventos')
         console.error('Erro ao buscar eventos:', error);
     });
 
-// Função para formatar a data (ex.: 2024-04-15 => 15 de Abril)
+// Funções para formatar datas e horários continuam iguais...
 function formatarData(dataISO) {
     const data = new Date(dataISO);
     const dia = data.getDate();
@@ -49,7 +51,6 @@ function formatarData(dataISO) {
     return `${dia} de ${mesFormatado}`;
 }
 
-// Função para pegar o dia da semana (ex.: Quarta Feira)
 function formatarDiaSemana(dataISO) {
     const data = new Date(dataISO);
     let diaSemana = data.toLocaleString('pt-BR', { weekday: 'long' }).replace('-feira', ' Feira');
@@ -57,7 +58,6 @@ function formatarDiaSemana(dataISO) {
     return diaSemana;
 }
 
-// Função para formatar o horário (ex.: 11:11:50 => 11h11)
 function formatarHorario(horario) {
     if (!horario) return '';
     const [hora, minuto] = horario.split(':');
