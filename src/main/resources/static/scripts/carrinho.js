@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const itemHTML = `
                 <div class="ingresso-linha">
                     <img src="${item.imagem}" alt="Imagem do evento">
-                   
                     <div class="info-evento">
                         <strong class="qntd-ingresso">Qntd. Ingresso</strong>
                         <p>${item.quantidade}</p>
@@ -62,17 +61,45 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Pagamento = Limpa o carrinho
+    // Pagamento com Stripe
     const btnPagamento = document.getElementById("button-payment");
-    btnPagamento.addEventListener("click", () => {
+    btnPagamento.addEventListener("click", async () => {
         if (carrinho.length === 0) {
             alert("Seu carrinho está vazio!");
             return;
         }
 
-        alert("Compra finalizada com sucesso!");
-        localStorage.removeItem("carrinho");
-        window.location.href = "inicio.html";
+        const total = carrinho.reduce((acc, item) => acc + (item.valor * item.quantidade), 0);
+
+        const email = prompt("Informe seu e-mail para continuar com o pagamento:");
+
+        if (!email) {
+            alert("E-mail é obrigatório para prosseguir.");
+            return;
+        }
+
+        try {
+            const response = await fetch("http://localhost:8080/api/payment/create-checkout-session", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    total: total,
+                    email: email
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.url) {
+                window.location.href = data.url;
+            } else {
+                alert("Erro ao criar sessão de pagamento.");
+            }
+
+        } catch (error) {
+            console.error("Erro:", error);
+            alert("Erro ao processar pagamento.");
+        }
     });
 
     atualizarCarrinho();
