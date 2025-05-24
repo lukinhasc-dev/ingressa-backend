@@ -22,7 +22,7 @@
             <ul>
                 <li><a href="inicio-admin.html">Painel</a></li>
                 <li><a href="adicionar-evento.html">Adicionar Evento</a></li>
-                <li><a href="/static/pages/sairconta-evento.html">Sair da Conta</a></li>
+                <li><a href="#" id="sair-conta">Sair da Conta</a></li>
             </ul>
         </nav>
     </header>
@@ -39,23 +39,19 @@
         <div class="events-cadaster">
             <div class="left-group">
                 <div class="form-group">
-                    <label for="nome">Nome do Evento</label>
                     <input type="text" id="nome_evento" name="nome" maxlength="30" placeholder="Digite o título do evento"
                            required>
                 </div>
 
                 <div class="form-group">
-                    <label for="horario">Horário do Evento</label>
                     <input type="time" id="horario_evento" name="horario" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="data">Data do Evento</label>
                     <input type="date" id="data_evento" name="data" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="preco">Preço do Evento</label>
                     <input type="text" id="preco_evento" name="preco" step="0.01" min="0"
                            placeholder="Digite o preço do ingresso" required>
                 </div>
@@ -63,7 +59,6 @@
 
             <div class="right-group">
                 <div class="form-group">
-                    <label for="descricao">Descrição do Evento</label>
                     <textarea id="descricao_evento" name="descricao" placeholder="Escreva uma descrição sobre o evento"
                               maxlength="255" rows="4" required></textarea>
                 </div>
@@ -82,34 +77,33 @@
         <div class="events-cadaster2">
             <div class="left-group">
                 <div class="form-group">
-                    <label for="endereco">Rua</label>
                     <input type="text" id="rua_evento" name="endereco" placeholder="Digite a localização do evento"
                            required>
                 </div>
 
                 <div class="form-group">
-                    <label for="cidade">Cidade</label>
                     <input type="text" id="cidade_evento" name="cidade" placeholder="Digite a cidade onde será o evento"
                            required>
                 </div>
 
                 <div class="form-group">
-                    <label for="estado">Estado</label>
                     <input type="text" id="estado_evento" name="estado" placeholder="Digite o estado do evento" required maxlength="2">
                 </div>
 
                 <div class="form-group">
-                    <label for="numero">Número do Local</label>
                     <input type="number" id="numero_evento" name="numero" placeholder="Número do local do evento" required>
                 </div>
             </div>
 
-            <div class="right-group">
-                <div class="form-group">
-                    <label for="foto">Banner ou Foto do Evento</label>
-                    <input type="file" id="foto_evento" name="foto" accept="image/*">
+            <div class="form-group photo-preview-container">
+                <input type="file" id="foto_evento" name="foto" accept="image/*">
+
+                <div class="preview-wrapper">
+                    <img id="preview-image" src="" alt="Preview da imagem" style="display:none;">
                 </div>
             </div>
+
+
         </div>
 
         <div class="tittle-text-events3">
@@ -188,7 +182,6 @@
             </p><br>
 
             <div class="checkbox-terms-conditions">
-                <label for="termos">
                     <input type="checkbox" name="termos" required>
                     Eu li e aceito os termos e condições e a política de privacidade do Ingressa, incluindo a
                     isenção de responsabilidade do Ingressa sobre a execução do evento.
@@ -197,12 +190,21 @@
         </div>
 
         <div class="cad-events">
-            <label for="submit"></label>
             <input type="submit" name="submit" value="Cadastrar evento">
         </div>
     </form>
 </section>
 
+<script>
+</script>
+<script>
+    document.getElementById('sair-conta').addEventListener('click', function(event) {
+        event.preventDefault(); // evita o link padrão
+        if (confirm('Deseja realmente sair da conta?')) {
+            window.location.href = 'login.html';
+        }
+    });
+</script>
 
 <script src="/static/scripts/adicionar-evento.js"></script>
 </body>

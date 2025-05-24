@@ -2,75 +2,227 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/static/css/style-inicio-admin.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/css/style-inicio-admin.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <title>Ingressa</title>
 
+    <style>
+        /* Modal de Edição */
+        #modal-editar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        #modal-editar .modal-content {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        #modal-editar h2 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        #modal-editar label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        #modal-editar input[type="text"],
+        #modal-editar input[type="time"],
+        #modal-editar input[type="date"],
+        #modal-editar input[type="number"],
+        #modal-editar textarea,
+        #modal-editar input[type="file"] {
+            width: 100%;
+            padding: 7px 10px;
+            margin-top: 4px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        #modal-editar textarea {
+            resize: vertical;
+        }
+
+        #modal-editar button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        #modal-editar button[type="submit"] {
+            background-color: #F85F1C;
+            color: white;
+        }
+
+        #modal-editar button[type="button"] {
+            background-color: #ccc;
+            color: #333;
+        }
+
+        /* Cursor pointer para ícones */
+        .icones i {
+            cursor: pointer;
+            margin-left: 10px;
+        }
+    </style>
 </head>
 
 <body>
-    <section class="nav-ingressa">
-        <header>
-            <div class="logo-ingressa">
-                <img src="/static/assets/ingressa-logo-transp.png" alt="Logotipo Ingressa">
+<section class="nav-ingressa">
+    <header>
+        <div class="logo-ingressa">
+            <img src="/static/assets/ingressa-logo-transp.png" alt="Logotipo Ingressa" />
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="inicio-admin.html">Painel</a></li>
+                <li><a href="adicionar-evento.html">Adicionar Evento</a></li>
+                <li><a href="#" id="sair-conta">Sair da Conta</a></li>
+            </ul>
+        </nav>
+    </header>
+</section>
+
+<section id="shows-description">
+    <div class="cards-tittle-description">
+        <h1 class="tittle-inicio">Painel do Administrador</h1>
+        <p class="text-inicio">
+            Acompanhe e gerencie seus eventos com facilidade. Consulte a quantidade de eventos
+            ativos, excluídos e cadastre novos sempre que quiser. Tenha total controle sobre suas criações e
+            mantenha seus eventos sempre atualizados.
+        </p>
+    </div>
+</section>
+
+<section id="cards-cima">
+    <div class="card-eventos-criados">
+        <strong>Eventos Criados</strong>
+        <p id="contador-criados">0</p>
+    </div>
+
+    <div class="card-eventos-criados">
+        <strong>Eventos Excluídos</strong>
+        <p id="contador-excluidos">0</p>
+    </div>
+
+    <div class="cadastrar-evento">
+        <strong>Cadastro de Evento</strong>
+        <p>
+            Clique no botão abaixo para cadastrar seu evento e começar a gerar renda com a venda de ingressos!
+            Informe o nome do evento, o valor dos ingressos, descrição e todos os detalhes necessários para que seus
+            clientes possam comprar de forma rápida e segura.
+        </p>
+        <a href="adicionar-evento.html" class="btn">Cadastrar Evento</a>
+    </div>
+</section>
+
+<section id="cards-crud">
+    <!-- Cards carregados via JS -->
+</section>
+
+<!-- Modal de Edição -->
+<div id="modal-editar">
+    <div class="modal-content">
+        <h2>Editar Evento</h2>
+        <form id="form-editar" enctype="multipart/form-data" data-id="">
+            <label>
+                Nome do Evento:
+                <input type="text" id="edit-nome" name="nome_evento" required />
+            </label>
+
+            <label>
+                Horário:
+                <input type="time" id="edit-horario" name="horario_evento" required />
+            </label>
+
+            <label>
+                Data:
+                <input type="date" id="edit-data" name="data_evento" required />
+            </label>
+
+            <label>
+                Preço:
+                <input type="number" step="0.01" id="edit-preco" name="preco_evento" required />
+            </label>
+
+            <label>
+                Descrição:
+                <textarea id="edit-descricao" name="descricao_evento" rows="3" required></textarea>
+            </label>
+
+            <label>
+                Rua:
+                <input type="text" id="edit-rua" name="rua_evento" required />
+            </label>
+
+            <label>
+                Cidade:
+                <input type="text" id="edit-cidade" name="cidade_evento" required />
+            </label>
+
+            <label>
+                Estado:
+                <input type="text" id="edit-estado" name="estado_evento" required />
+            </label>
+
+            <label>
+                Número:
+                <input type="text" id="edit-numero" name="numero_evento" required />
+            </label>
+
+            <label>
+                Foto do Evento (opcional):
+                <input type="file" id="edit-foto" name="foto_evento" accept="image/*" />
+            </label>
+            <div id="preview-container" style="margin-top:10px;">
+                <img id="preview-foto" src="#" alt="Preview da Foto" style="max-width: 100%; display: none;" />
             </div>
 
-            <nav>
-                <ul>
-                    <li><a href="inicio-admin.html">Painel</a></li>
-                    <li><a href="adicionar-evento.html">Adicionar Evento</a></li>
-                    <li><a href="">Sair da Conta</a></li>
-                </ul>
-            </nav>
-        </header>
-    </section>
 
-    <section id="shows-description">
-        <div class="cards-tittle-description">
-            <h1 class="tittle-inicio">Painel do Administrador</h1>
-            <p class="text-inicio">Acompanhe e gerencie seus eventos com facilidade. Consulte a quantidade de eventos
-                ativos, excluídos e cadastre novos sempre que quiser. Tenha total controle sobre suas criações e
-                mantenha seus eventos sempre atualizados.</p>
-        </div>
-    </section>
+            <button type="submit">Salvar Alterações</button>
+            <button type="button" onclick="fecharModalEditar()">Cancelar</button>
+        </form>
+    </div>
+</div>
+<script>
+    document.getElementById('sair-conta').addEventListener('click', function(event) {
+        event.preventDefault(); // evita o link padrão
+        if (confirm('Deseja realmente sair da conta?')) {
+            window.location.href = 'login.html';
+        }
+    });
+</script>
 
-    <section id="cards-cima">
-        <div class="card-eventos-criados">
-            <strong>Eventos Criados</strong>
-            <p>1</p>
-        </div>
-
-        <div class="card-eventos-criados">
-            <strong>Eventos Excluídos</strong>
-            <p>1</p>
-        </div>
-
-        <div class="cadastrar-evento">
-            <strong>Cadastro de Evento</strong>
-            <p>Clique no botão abaixo para cadastrar seu evento e começar a gerar renda com a venda de ingressos!
-                Informe o nome do evento, o valor dos ingressos, descrição e todos os detalhes necessários para que seus
-                clientes possam comprar de forma rápida e segura.
-            </p>
-            <a href="adicionar-evento.html" class="btn">Cadastrar Evento</a>
-
-        </div>
-    </section>
-
-    <section id="cards-crud">
-        <div class="crud-evento">
-            <div class="evento-cardzinho">
-                <img src="/assets/img/teste-fotomcpaiva.png" alt="Foto MC Paiva">
-                <p>Titulo do Evento do Administrador</p>
-            </div>
-            <div class="icones">
-                <i class="fas fa-pen"></i> <!-- Ícone lápis preenchido -->
-                <i class="fas fa-times"></i>
-            </div>
-        </div>
-    </section>
-
-    <script src="/static/scripts/inicio-admin.js"></script>
+<script src="/static/scripts/inicio-admin.js"></script>
 </body>
+
+</html>
