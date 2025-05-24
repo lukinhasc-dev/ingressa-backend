@@ -27,10 +27,9 @@ fetch('http://localhost:8080/api/eventos')
                             </div>
                         </div>
 
-                        <button id="btn-ingressos"
-                            onclick="window.location.href='/informacoes-evento/${evento.id}'">
-                            Ingressos
-                        </button>
+                         <a href="informacoes-evento.html?id=${evento.id}">
+                <button id="btn-ingressos">Ingressos</button>
+            </a>
                     </div>
                 </section>
             `;

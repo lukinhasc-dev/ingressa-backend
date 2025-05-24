@@ -1,89 +1,62 @@
-document.addEventListener("DOMContentLoaded", function () {
-
-  function getIdFromUrl() {
+document.addEventListener("DOMContentLoaded", async () => {
     const params = new URLSearchParams(window.location.search);
-    return params.get('id');
-  }
+    const eventoId = params.get("id");
 
-  function getDiaSemana(dataString) {
-    const dias = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-    const data = new Date(dataString);
-    return dias[data.getDay()];
-  }
-
-  function formatarDataPorExtenso(dataString) {
-    const data = new Date(dataString);
-    return data.toLocaleDateString('pt-BR');
-  }
-
-  let eventoSelecionado = null; // variável global dentro do escopo do DOMContentLoaded
-
-  async function carregarEvento() {
-    const id = getIdFromUrl();
-
-    if (!id) {
-      alert('Evento não encontrado!');
-      return;
+    if (!eventoId) {
+        alert("Evento não encontrado!");
+        window.location.href = "inicio.html";
+        return;
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/api/eventos/${id}`);
-      if (!response.ok) {
-        throw new Error('Erro ao buscar os dados do evento');
-      }
+        const response = await fetch(`http://localhost:8080/api/eventos/${eventoId}`);
 
-      const texto = await response.text();
+        if (!response.ok) {
+            throw new Error("Erro ao buscar evento.");
+        }
 
-      let evento;
-      try {
-        evento = JSON.parse(texto);
-      } catch (e) {
-        console.error('Resposta não é JSON válido:', e);
-        console.log('Resposta recebida:', texto);
-        throw new Error('Resposta não é JSON válido');
-      }
+        const evento = await response.json();
 
-      eventoSelecionado = evento; // salva o evento para usar no botão depois
+        // Preenchendo as informações do evento na página
+        document.querySelector(".tittle-text-events h1").textContent = evento.nome_evento;
+        document.querySelector(".tittle-text-events p").textContent = evento.descricao_evento;
 
-      // Atualiza os campos da página com as informações do evento
-      document.querySelector('.tittle-text-events h1').textContent = evento.nome_evento;
-      document.querySelector('.tittle-text-events p').textContent = evento.descricao_evento;
-      document.querySelectorAll('.text-info')[0].textContent = formatarDataPorExtenso(evento.data_evento);
-      document.querySelectorAll('.text-info')[1].textContent = getDiaSemana(evento.data_evento);
-      document.querySelectorAll('.text-info')[2].textContent = evento.local_evento || evento.rua_evento; // ajuste conforme seu campo correto
-      document.querySelectorAll('.text-info')[3].textContent = evento.horario_evento;
-      document.querySelector('.ingresso-valor').textContent = `R$ ${parseFloat(evento.valor_ingresso || evento.preco_evento).toFixed(2).replace('.', ',')}`;
-      document.querySelector('#foto-banner img').src = evento.foto_evento;
+        document.querySelectorAll(".text-info")[0].textContent = evento.data_evento;         // Data
+        document.querySelectorAll(".text-info")[1].textContent = evento.cidade_evento;    // Dia da semana
+        document.querySelectorAll(".text-info")[2].textContent = evento.rua_evento;        // Local
+        document.querySelectorAll(".text-info")[3].textContent = evento.horario_evento;      // Horário
+
+        document.querySelector(".ingresso-valor").textContent = `R$ ${evento.preco_evento}`;
+
+        document.querySelector("#foto-banner img").src = evento.foto_evento;
+        document.querySelector("#foto-banner img").alt = `Imagem do evento ${evento.titulo_evento}`;
+
+        const btnCarrinho = document.getElementById("carrinho");
+        btnCarrinho.addEventListener("click", () => {
+            let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+
+            const item = {
+                id: evento.id,
+                titulo: evento.nome_evento,
+                valor: parseFloat(evento.preco_evento),
+                quantidade: 1,
+                imagem: evento.foto_evento
+            };
+
+            const itemExistente = carrinho.find(e => e.id === evento.id);
+            if (itemExistente) {
+                itemExistente.quantidade += 1;
+            } else {
+                carrinho.push(item);
+            }
+
+            localStorage.setItem("carrinho", JSON.stringify(carrinho));
+            alert("Ingresso adicionado ao carrinho!");
+        });
 
     } catch (error) {
-      console.error(error);
-      alert('Não foi possível carregar os dados do evento.');
+        console.error(error);
+        alert("Erro ao carregar informações do evento.");
+        window.location.href = "inicio.html";
     }
-  }
-
-  carregarEvento();
-
-  // Configura o clique no botão só depois que o evento carregar
-  document.querySelector('#btn-adicionar-carrinho').addEventListener('click', () => {
-    if (!eventoSelecionado) {
-      alert('Evento ainda não carregado.');
-      return;
-    }
-
-    const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
-
-    // Verifica se o evento já está no carrinho pelo id
-    const jaExiste = carrinho.find(e => e.id_evento === eventoSelecionado.id_evento);
-    if (!jaExiste) {
-      carrinho.push(eventoSelecionado);
-      localStorage.setItem('carrinho', JSON.stringify(carrinho));
-      alert('Evento adicionado ao carrinho!');
-    } else {
-      alert('Evento já está no carrinho.');
-    }
-
-    // Redireciona para a página do carrinho
-    window.location.href = 'carrinho.html';
-  });
-
 });

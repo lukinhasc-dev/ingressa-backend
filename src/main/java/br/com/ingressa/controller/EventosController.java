@@ -89,7 +89,7 @@ public class EventosController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Evento criado com sucesso!");
     }
 
-    @GetMapping("/informacoes-evento/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Eventos> buscarPorId(@PathVariable Long id) {
         return eventosRepository.findById(id)
                 .map(evento -> ResponseEntity.ok(evento))

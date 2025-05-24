@@ -22,6 +22,7 @@ public class CorsConfig {
                 registry.addResourceHandler("/uploads/**")
                         .addResourceLocations("file:uploads/");
             }
+
         };
     }
 }
