@@ -45,6 +45,3 @@ public class Eventos {
     @Column(nullable = true, name = "foto_evento", columnDefinition = "varchar(255)")
     private String foto_evento;
 }
-
-
-

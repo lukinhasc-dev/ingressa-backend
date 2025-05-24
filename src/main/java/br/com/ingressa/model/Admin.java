@@ -13,7 +13,7 @@ import lombok.Setter;
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = true, name = "cpf_admin", columnDefinition = "varchar(255)")
     private String cpf;

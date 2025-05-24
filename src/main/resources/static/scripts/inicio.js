@@ -1,87 +1,58 @@
-// Função para pegar o dia da semana
-function getDiaSemana(dataString) {
-    const dias = ['Dom', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-    const data = new Date(dataString);
-    return dias[data.getDay()];
-}
+    document.addEventListener('DOMContentLoaded', () => {
 
-// Função para formatar a data por extenso
-function formatarDataPorExtenso(dataString) {
-    const meses = [
-        'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-        'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-    ];
+        fetch('http://localhost:8080/api/eventos')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar eventos');
+                }
+                return response.json();
+            })
+            .then(eventos => {
+                if (eventos.length === 0) {
+                    cardsJunction.innerHTML = '<p class="sem-evento">Nenhum evento cadastrado no momento.</p>';
+                    return;
+                }
 
-    const data = new Date(dataString + 'T00:00:00');
-    const dia = data.getDate();
-    const mes = meses[data.getMonth()];
+                eventos.forEach(evento => {
+                    const dataEvento = new Date(evento.data_evento);
+                    const diaSemana = dataEvento.toLocaleDateString('pt-BR', { weekday: 'long' });
+                    const diaMes = dataEvento.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long' });
 
-    return `${dia} de ${mes}`;
-}
-
-// Função para formatar o horário
-function formatarHorario(horarioString) {
-    const [hora, minuto] = horarioString.split(':'); // Ajustei o split para ':'
-
-    if (minuto === '00') {
-        return `${hora}h`;
-    } else {
-        return `${hora}h${minuto}`;
-    }
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    fetch('http://localhost:8080/api/eventos')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao carregar os eventos');
-            }
-            return response.json();
-        })
-        .then(data => {
-            const eventosContainer = document.getElementById('cards-content');
-            eventosContainer.innerHTML = '';  // Limpa o conteúdo atual
-
-            // Itera sobre os eventos recebidos
-            data.forEach(evento => {
-                const diaSemana = getDiaSemana(evento.data_evento);
-                const dataExtenso = formatarDataPorExtenso(evento.data_evento);
-                const horarioFormatado = formatarHorario(evento.horario_evento);
-
-                const eventoElement = document.createElement('section');
-                eventoElement.classList.add('cards-content');
-                eventoElement.innerHTML = `
-                    <div class="cards-image">
-                        <!-- Usando o caminho da imagem que foi salva no banco de dados -->
-                        <img src="http://localhost:8080${evento.foto_evento}" alt="Foto do evento" height="500px" width="500px">
-                    </div>
-                    <div class="cards-title-description">
-                        <span class="title-card">${evento.nome_evento}</span>
-                        <p class="description-card">${evento.descricao_evento}</p>
-                    </div>
-                    <div class="cards-information">
-                        <div class="cards-date">
-                            <div class="cards-dayweek">
-                                <span>${diaSemana}</span>
+                    const cardHTML = `
+                        <section class="card">
+                            <div class="card-evento">
+                                <img src="http://localhost:8080${evento.foto_evento}" alt="Foto do Evento">
+                                <strong class="titulo-evento">${evento.nome_evento}</strong>
+                                <p class="descricao-evento">${evento.descricao_evento}</p>
                             </div>
-                            <span>${dataExtenso}</span>
-                            <span> - </span>
-                            <span>${horarioFormatado}</span>
-                        </div>
-                        <div class="cards-ingresso">
-                            <a href="informacoes-evento.html?id=${evento.id}">
-                                <button>Ingressos</button>
-                            </a>
-                        </div>
-                    </div>
-                   
-                `;
-
-                eventosContainer.appendChild(eventoElement);
+    
+                            <div class="card-evento-informacao">
+                                <div class="data-informacao">
+                                    <span class="dia-semana">${capitalizeFirstLetter(diaSemana)}</span>
+                                    <div>
+                                        <span class="dia-mes">${diaMes}</span>
+                                        <span> - </span>
+                                        <span class="hora-evento">${evento.horario_evento}</span>
+                                    </div>
+                                </div>
+    
+                                <button class="btn-ingressos"
+                                    onclick="window.location.href='/static/pages/informacoes-evento.html?id=${evento.id}'">
+                                    Ingressos
+                                </button>
+                            </div>
+                        </section>
+                    `;
+                    cardsJunction.insertAdjacentHTML('beforeend', cardHTML);
+                });
+            })
+            .catch(error => {
+                console.error(error);
+                cardsJunction.innerHTML = '<p class="erro-evento">Erro ao carregar eventos. Tente novamente mais tarde.</p>';
             });
-        })
-        .catch(error => {
-            console.error('Erro ao carregar os eventos:', error);
-            alert('Erro ao carregar os eventos');
-        });
-});
+    });
+
+    // Função para deixar a primeira letra maiúscula
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }

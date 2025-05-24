@@ -1,6 +1,7 @@
 package br.com.ingressa.controller;
 
 import br.com.ingressa.model.Admin;
+import br.com.ingressa.repository.AdminRepository;
 import br.com.ingressa.service.AdminService;
 import br.com.ingressa.util.ResponseMessage;
 import lombok.Getter;
@@ -8,6 +9,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/admin")
@@ -53,5 +56,34 @@ public class AdminController {
     public static class AdminRequest {
         private String cpf_admin;
         private String senha_admin;
+    }
+
+    @Autowired
+    private AdminRepository adminRepository;
+
+    @GetMapping
+    public List<Admin> listarTodos() {
+        return adminRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Admin> buscarPorId(@PathVariable Integer id) {
+        return adminRepository.findById(id)
+                .map(admin -> ResponseEntity.ok(admin))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public Admin criar(@RequestBody Admin admin) {
+        return adminRepository.save(admin);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
+        return adminRepository.findById(id)
+                .map(admin -> {
+                    adminRepository.delete(admin);
+                    return ResponseEntity.ok().<Void>build();
+                }).orElse(ResponseEntity.notFound().build());
     }
 }

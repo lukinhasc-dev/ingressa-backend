@@ -21,6 +21,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.UUID;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/eventos")
 public class EventosController {
@@ -88,17 +89,13 @@ public class EventosController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Evento criado com sucesso!");
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/informacoes-evento/{id}")
     public ResponseEntity<Eventos> buscarPorId(@PathVariable Long id) {
         return eventosRepository.findById(id)
                 .map(evento -> ResponseEntity.ok(evento))
                 .orElse(ResponseEntity.notFound().build());
     }
 
+
+
 }
-
-
-
-
-
-

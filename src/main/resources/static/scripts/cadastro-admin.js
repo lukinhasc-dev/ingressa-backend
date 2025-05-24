@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 })
                 .then(data => {
                     alert("Cadastro de administrador realizado com sucesso!");
-                    window.location.replace("login.html");
+                    window.location.replace("adicionar-evento.html"); //TESTE
                 })
                 .catch(error => {
                     alert(error.message);
